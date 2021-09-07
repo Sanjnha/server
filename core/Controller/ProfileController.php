@@ -45,7 +45,7 @@ class ProfileController extends \OCP\AppFramework\Controller {
 
 	/** @var IL10N */
 	private $l10n;
-	
+
 	/** @var IUserSession */
 	private $userSession;
 
@@ -65,7 +65,7 @@ class ProfileController extends \OCP\AppFramework\Controller {
 	private $userStatusManager;
 
 	/** @var IActionManager */
-	private $actionManager;
+	// private $actionManager;
 
 	public function __construct(
 		$appName,
@@ -77,7 +77,7 @@ class ProfileController extends \OCP\AppFramework\Controller {
 		IInitialState $initialStateService,
 		IAppManager $appManager,
 		IManager $userStatusManager,
-		IActionManager $actionManager
+		// IActionManager $actionManager
 	) {
 		parent::__construct($appName, $request);
 		$this->l10n = $l10n;
@@ -87,14 +87,14 @@ class ProfileController extends \OCP\AppFramework\Controller {
 		$this->initialStateService = $initialStateService;
 		$this->appManager = $appManager;
 		$this->userStatusManager = $userStatusManager;
-		$this->actionManager = $actionManager;
+		// $this->actionManager = $actionManager;
 	}
 
 	public const PROPERTY_ACTIONS = [
 		IAccountManager::PROPERTY_EMAIL,
 		IAccountManager::PROPERTY_PHONE,
 		IAccountManager::PROPERTY_WEBSITE,
-		IAccountManager::PROPERTY_TWITTER
+		IAccountManager::PROPERTY_TWITTER,
 	];
 
 	/**
@@ -194,12 +194,12 @@ class ProfileController extends \OCP\AppFramework\Controller {
 			if ($scope === IAccountManager::SCOPE_PRIVATE) {
 				return;
 			}
-	
+
 			// User is not logged in, we don't display the action
 			if ($scope === IAccountManager::SCOPE_LOCAL && !$this->userSession->isLoggedIn()) {
 				return;
 			}
-	
+
 			// TODO: handle federation verification
 			if ($scope === IAccountManager::SCOPE_FEDERATED && false) {
 				return;
@@ -207,7 +207,7 @@ class ProfileController extends \OCP\AppFramework\Controller {
 
 			switch ($property) {
 				case IAccountManager::PROPERTY_EMAIL:
-					$this->actionManager->registerAction(new EmailAction($value));
+					// $this->actionManager->registerAction(new EmailAction($value));
 					break;
 
 				default:
