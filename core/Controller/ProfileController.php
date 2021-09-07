@@ -159,10 +159,7 @@ class ProfileController extends \OCP\AppFramework\Controller {
 
 		$additionalEmails = array_map(
 			function (IAccountProperty $property) {
-				return [
-					'value' => $property->getValue(),
-					'scope' => $property->getScope(),
-				];
+				return $property->getValue();
 			},
 			$account->getPropertyCollection(IAccountManager::COLLECTION_EMAIL)->getProperties()
 		);
@@ -170,12 +167,12 @@ class ProfileController extends \OCP\AppFramework\Controller {
 		$profileParameters = [
 			'userId' => $account->getUser()->getUID(),
 			'displayName' => $account->getProperty(IAccountManager::PROPERTY_DISPLAYNAME)->getValue(),
-			// 'additionalEmails' => $additionalEmails,
 			'address' => $account->getProperty(IAccountManager::PROPERTY_ADDRESS)->getValue(),
 			// Ordered by precedence, order is preserved in PHP and modern JavaScript
 			'actionParameters' => [
 				'talkEnabled' => $this->appManager->isEnabledForUser('spreed', $account->getUser()),
 				'email' => $account->getProperty(IAccountManager::PROPERTY_EMAIL)->getValue(),
+				// 'additionalEmails' => $additionalEmails,
 				'phoneNumber' => $account->getProperty(IAccountManager::PROPERTY_PHONE)->getValue(),
 				'website' => $account->getProperty(IAccountManager::PROPERTY_WEBSITE)->getValue(),
 				'twitterUsername' => $account->getProperty(IAccountManager::PROPERTY_TWITTER)->getValue(),
