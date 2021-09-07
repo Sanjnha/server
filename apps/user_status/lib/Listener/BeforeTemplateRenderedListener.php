@@ -31,6 +31,7 @@ use OCP\Accounts\IAccountManager;
 use OCP\IUserSession;
 use OCA\UserStatus\AppInfo\Application;
 use OCA\UserStatus\Service\JSDataService;
+use OCP\Accounts\PropertyDoesNotExistException;
 use OCP\AppFramework\Http\Events\BeforeTemplateRenderedEvent;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\EventDispatcher\Event;
@@ -113,9 +114,9 @@ class BeforeTemplateRenderedListener implements IEventListener {
 	 */
 	private function getProfileEnabled(IAccount $account): bool {
 		return filter_var(
-				$account->getProperty(IAccountManager::PROPERTY_PROFILE_ENABLED)->getValue(),
-				FILTER_VALIDATE_BOOLEAN,
-				FILTER_NULL_ON_FAILURE,
+			$account->getProperty(IAccountManager::PROPERTY_PROFILE_ENABLED)->getValue(),
+			FILTER_VALIDATE_BOOLEAN,
+			FILTER_NULL_ON_FAILURE,
 		);
 	}
 }
